@@ -14,15 +14,15 @@ Normally, you can install these dependencies by:
 
 <br><h4>Windows</h4>
 1. Open OSGeo Shell
-2. Based on your system and python version, get fiona whl file from:
+2. Get fiona whl file from the link below (based on your system and python version)
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona
 <br>Then pip install *Path To whl file*
 3. pip install pandas pyproj shapely geopandas
 
 <br><h4>Linux/Mac</h4>
-1. pip install pandas pyproj shapely geopandas
+1. pip install pandas pyproj fiona geopandas
+<br> Keep in mind that you have to install these packages in QGIS python environment
 
 You can also check the official instructions:<br>
 https://pandas.pydata.org/docs/getting_started/install.html <br>
 https://geopandas.org/en/stable/getting_started/install.html <br>
-# spatialanalysistoolbox
