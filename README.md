@@ -19,7 +19,7 @@ https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona
 <br>Then pip install *Path To whl file*
 3. pip install pandas pyproj shapely geopandas
 
-<br><h4>Linux/Mac</h4>
+<h4>Linux/Mac</h4>
 1. pip install pandas pyproj fiona geopandas
 <br> Keep in mind that you have to install these packages in QGIS python environment
 
