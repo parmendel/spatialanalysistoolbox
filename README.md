@@ -13,8 +13,8 @@ In order to use the plugin you will need to install Pandas and Geopandas.
 Normally, you can install these dependencies by:
 
 <h4>Windows</h4>
-1. Open OSGeo Shell (py3_env to activate python environment, if needed)
-2. Get fiona whl file (based on your system and python version) https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona <br>Then pip install *Path To whl file*
+1. Open OSGeo Shell (py3_env to activate python environment, if needed)<br>
+2. Get fiona whl file (based on your system and python version) https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona <br>Then pip install *Path To whl file*<br>
 3. pip install pandas pyproj shapely geopandas
 
 <h4>Linux/Mac</h4>
