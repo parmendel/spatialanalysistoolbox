@@ -18,15 +18,14 @@ from qgis.core import    (QgsProcessing,
                           QgsProcessingParameterFeatureSink,
                           QgsFeatureSink,
                           QgsVectorLayer,
+                          QgsMessageLog,
                           Qgis)
 import geopandas as gpd
 import pandas as pd
 import numpy as np
-#from mgwr.gwr import GWR
-#from mgwr.sel_bw import Sel_BW
 from .mgwr.gwr import GWR
 from .mgwr.sel_bw import Sel_BW
-import os, tempfile
+import os, tempfile, sys, io
 import processing
 
 class GWR_(QgsProcessingAlgorithm):
@@ -64,7 +63,7 @@ class GWR_(QgsProcessingAlgorithm):
         tempDir = tempfile.gettempdir()
         temp = os.path.join(tempDir, 'temp.shp')  # Path
 
-        layer = processing.run("sat:clonelayer", {'INPUT':layerSource ,'OUTPUT':temp})['OUTPUT']
+        layer = processing.run("script:clonelayer", {'INPUT':layerSource ,'OUTPUT':temp})['OUTPUT']
         data = gpd.read_file(layer)
         
         # List with coords
@@ -121,21 +120,32 @@ class GWR_(QgsProcessingAlgorithm):
         localr2 = res.localR2
         tvalues = res.tvalues
 
+        R2 = round(res.R2,3)
         
-        R2 = round(res.R2,4)
-        summary = res.summary()
-        
+        # res.summary prints the summary
+        # I want to pass it to a var so that I can pass it in Log Messages
+        old_stdout = sys.stdout
+        new_stdout = io.StringIO()
+        sys.stdout = new_stdout
+        res.summary()
+        summary = new_stdout.getvalue()
+
         # Join to gdf
         gwr = data.join(pd.DataFrame(coeff, columns = cols))  # This is a geodataframe
         gwr = gwr.join(pd.DataFrame(predicted, columns = ['predY']))
         gwr = gwr.join(pd.DataFrame(localr2, columns = ['localR2']))
         gwr = gwr.join(pd.DataFrame(residuals, columns = ['residuals']))
         gwr = gwr.join(pd.DataFrame(tvalues, columns = t_stats))
-
+        
+        # Round values
+        allCols = cols + t_stats + ['predY', 'localR2', 'residuals']
+        gwr.loc[:, allCols] = gwr[allCols].round(4)
+        
+        # GeoDF -> shp
         outPath = os.path.join(tempfile.gettempdir(), 'temp_gwr.shp')
         gwr.to_file(outPath)
         
-        # Geodataframe -> GeoJSON -> QgsVectorLayer
+        # SHP-> QgsVectorLayer
         vectorLayer = QgsVectorLayer(outPath,"mygeojson","ogr")
         vectorLayer.setCrs(layerSource.crs())
 
@@ -145,8 +155,12 @@ class GWR_(QgsProcessingAlgorithm):
         features = source.getFeatures()
         for current, feature in enumerate(features):
             sink.addFeature(feature, QgsFeatureSink.FastInsert)
-        return {'OUTPUT':dest_id, 'R2':R2}
-
+            
+        # Log Messages
+        QgsMessageLog.logMessage(summary, "Spatial Analysis Toolbox", level=Qgis.Info)
+        QgsMessageLog.logMessage('Variables: {}'.format(cols), "Spatial Analysis Toolbox", level=Qgis.Info)
+        
+        return {'OUTPUT':dest_id, 'R2':R2, 'Results': 'Check Log Message for more'}
 
     def name(self):
         return 'gwr_'
