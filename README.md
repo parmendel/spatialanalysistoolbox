@@ -12,7 +12,7 @@ In order to use the plugin you will need to install Pandas and Geopandas.
 </p>
 Normally, you can install these dependencies by:
 
-<br><h4>Windows</h4>
+<h4>Windows</h4>
 1. Open OSGeo Shell (py3_env to activate python environment, if needed)
 2. Get fiona whl file from the link below (based on your system and python version)
 https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona
