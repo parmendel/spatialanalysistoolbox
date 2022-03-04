@@ -35,7 +35,7 @@ from .algorithms.CloneLayer import CloneLayer
 from .algorithms.GWR_ import GWR_
 from .algorithms.LocalMoransI import LocalMoransI
 from .algorithms.MoransI import MoransI
-from .algorithms.Pearson import Pearson
+from .algorithms.CorrelationMatrix import CorrelationMatrix
 from .algorithms.LocationQuotient import LocationQuotient
 from .algorithms.EntropyIndex import EntropyIndex
 #from .algorithms.HuffModel import HuffModel
@@ -54,7 +54,7 @@ class SpatialAnalysisToolboxProvider(QgsProcessingProvider):
         self.addAlgorithm(GWR_())
         self.addAlgorithm(LocalMoransI())
         self.addAlgorithm(MoransI())
-        self.addAlgorithm(Pearson())
+        self.addAlgorithm(CorrelationMatrix())
         self.addAlgorithm(LocationQuotient())
         self.addAlgorithm(EntropyIndex())
         #self.addAlgorithm(HuffModel())

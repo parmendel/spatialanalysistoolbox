@@ -6,7 +6,7 @@
 name=Spatial Analysis Toolbox
 qgisMinimumVersion=3.0
 description=This plugin adds some useful algorithms for Spatial Analysis
-version=0.1
+version=0.2
 author=Parmenion Delialis
 email=parmeniondelialis@gmail.com
 
