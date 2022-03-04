@@ -16,9 +16,8 @@ from qgis.core import (QgsProcessing,
                        QgsProcessingParameterEnum,
                        QgsMessageLog,
                        Qgis)
-from .libpysal.weights.contiguity import Queen, Rook
-from .libpysal.weights.distance import KNN, DistanceBand
-from .esda.moran import Moran
+import libpysal
+from esda.moran import Moran
 import os, tempfile
 import processing
 
@@ -62,13 +61,13 @@ class MoransI(QgsProcessingAlgorithm):
 
         # Create spatial weights
         if method == 0:
-            w = Queen.from_shapefile(temp)
+            w = libpysal.weights.contiguity.Queen.from_shapefile(temp)
         elif method == 1:
-            w = Rook.from_shapefile(temp)
+            w = libpysal.weights.contiguity.Rook.from_shapefile(temp)
         elif method == 2:
-            w = KNN.from_shapefile(temp, k=knn_dist)
+            w = libpysal.weights.distance.KNN.from_shapefile(temp, k=knn_dist)
         elif method ==3:
-            w = DistanceBand.from_shapefile(temp, threshold=knn_dist)
+            w = libpysal.weights.distance.DistanceBand.from_shapefile(temp, threshold=knn_dist)
         
         # Calculate Moran's I
         MoransI = Moran(y, w)

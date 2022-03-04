@@ -10,7 +10,7 @@ version=0.2
 author=Parmenion Delialis
 email=parmeniondelialis@gmail.com
 
-about=This plugin adds some useful algorithms for Spatial Analysis. Some of them are: Moran's I, Local Moran's I, GWR. Spatial Analysis Toolbox depends on python packages pandas, geopandas and pysal (packages included). Therefore, you will need to install these packages in QGIS python environment 
+about=This plugin adds some useful algorithms for Spatial Analysis. Some of them are: Moran's I, Local Moran's I, GWR.\n Dependencies: pandas, geopandas, libpysal, esda, mgwr
 
 tracker=https://github.com/parmendel/spatialanalysistoolbox/issues
 repository=https://github.com/parmendel/spatialanalysistoolbox
@@ -37,7 +37,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-plugin_dependencies=pandas,geopandas
+plugin_dependencies=pandas,geopandas,libpysal,esda,mgwr
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=vector

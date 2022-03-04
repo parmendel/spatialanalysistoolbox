@@ -23,8 +23,8 @@ from qgis.core import    (QgsProcessing,
 import geopandas as gpd
 import pandas as pd
 import numpy as np
-from .mgwr.gwr import GWR
-from .mgwr.sel_bw import Sel_BW
+from mgwr.gwr import GWR
+from mgwr.sel_bw import Sel_BW
 import os, tempfile, sys, io
 import processing
 
@@ -63,7 +63,7 @@ class GWR_(QgsProcessingAlgorithm):
         tempDir = tempfile.gettempdir()
         temp = os.path.join(tempDir, 'temp.shp')  # Path
 
-        layer = processing.run("script:clonelayer", {'INPUT':layerSource ,'OUTPUT':temp})['OUTPUT']
+        layer = processing.run("sat:clonelayer", {'INPUT':layerSource ,'OUTPUT':temp})['OUTPUT']
         data = gpd.read_file(layer)
         
         # List with coords
