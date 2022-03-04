@@ -15,10 +15,10 @@ Normally, you can install these dependencies by:
 <h4>Windows</h4>
 1. Open OSGeo Shell (py3_env to activate python environment, if needed)<br>
 2. Get fiona whl file (based on your system and python version) https://www.lfd.uci.edu/~gohlke/pythonlibs/#fiona <br>Then pip install *Path To whl file*<br>
-3. pip install pandas pyproj shapely geopandas
+3. pip install pandas pyproj shapely geopandas libpysal esda mgwr
 
 <h4>Linux/Mac</h4>
-1. pip install pandas pyproj fiona geopandas
+1. pip install pandas pyproj fiona geopandas libpysal esda mgwr
 <br> Keep in mind that you have to install these packages in QGIS python environment
 
 You can also check the official instructions:<br>
