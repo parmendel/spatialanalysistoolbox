@@ -7,7 +7,7 @@ Spatial Analysis Toolbox is a plugin for QGIS. It contains some processing algor
 
 <h3>REQUIREMENTS</h3>
 <p>
-Spatial Analysis Toolbox depends on Pandas and Geopandas. Also, PySAL is required but the packages required are provided with the plugin.
+Spatial Analysis Toolbox depends on Pandas and Geopandas, PSySAL.
 In order to use the plugin you will need to install Pandas and Geopandas.
 </p>
 Generally, you can install these dependencies by:
