@@ -38,8 +38,7 @@ from .algorithms.MoransI import MoransI
 from .algorithms.CorrelationMatrix import CorrelationMatrix
 from .algorithms.LocationQuotient import LocationQuotient
 from .algorithms.EntropyIndex import EntropyIndex
-#from .algorithms.HuffModel import HuffModel
-#from .algorithms.TravelMatrix import TravelMatrix
+from .algorithms.DummyVariables import DummyVariables
 
 class SpatialAnalysisToolboxProvider(QgsProcessingProvider):
 
@@ -57,8 +56,7 @@ class SpatialAnalysisToolboxProvider(QgsProcessingProvider):
         self.addAlgorithm(CorrelationMatrix())
         self.addAlgorithm(LocationQuotient())
         self.addAlgorithm(EntropyIndex())
-        #self.addAlgorithm(HuffModel())
-        #self.addAlgorithm(TravelMatrix())
+        self.addAlgorithm(DummyVariables())
 
     def id(self):
         return 'sat'

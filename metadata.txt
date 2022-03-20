@@ -10,7 +10,7 @@ version=0.2
 author=Parmenion Delialis
 email=parmeniondelialis@gmail.com
 
-about=This plugin adds some useful algorithms for Spatial Analysis. Some of them are: Moran's I, Local Moran's I, GWR.\n Dependencies: pandas, geopandas, libpysal, esda, mgwr
+about=This plugin adds some useful algorithms for Spatial Analysis. Some of them are: Moran's I, Local Moran's I, GWR. Dependencies: pandas, geopandas, libpysal, esda, mgwr
 
 tracker=https://github.com/parmendel/spatialanalysistoolbox/issues
 repository=https://github.com/parmendel/spatialanalysistoolbox
