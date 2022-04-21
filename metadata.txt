@@ -5,12 +5,12 @@
 [general]
 name=Spatial Analysis Toolbox
 qgisMinimumVersion=3.0
-description=This plugin adds some useful algorithms for Spatial Analysis
-version=0.2
+description=This plugin adds some useful algorithms for Spatial Analysis.
+version=0.3
 author=Parmenion Delialis
 email=parmeniondelialis@gmail.com
 
-about=This plugin adds some useful algorithms for Spatial Analysis. Some of them are: Moran's I, Local Moran's I, GWR. Dependencies: pandas, geopandas, libpysal, esda, mgwr
+about=This plugin adds some useful algorithms for Spatial Analysis. Some of them are: Moran's I, Local Moran's I, GWR. Dependencies: pandas, geopandas, libpysal, esda, mgwr.
 
 tracker=https://github.com/parmendel/spatialanalysistoolbox/issues
 repository=https://github.com/parmendel/spatialanalysistoolbox
@@ -37,7 +37,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-plugin_dependencies=pandas,geopandas,libpysal,esda,mgwr
+#plugin_dependencies=
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=vector
