@@ -33,11 +33,13 @@ class LocalMoransI(QgsProcessingAlgorithm):
     METHOD = 'METHOD'
     KNN_DIST = 'KNN_DIST'
     OUTPUT = 'OUTPUT'
+    PERMUTATION = 'PERMUTATION_NUMBER'
     
     def initAlgorithm(self, config=None):
         self.addParameter(QgsProcessingParameterVectorLayer(self.INPUT, 'Input layer', types=[QgsProcessing.TypeVectorPolygon, QgsProcessing.TypeVectorPoint], defaultValue=None))
         self.addParameter(QgsProcessingParameterField(self.VARIABLE, 'Variable X', type=QgsProcessingParameterField.Numeric, parentLayerParameterName=self.INPUT))
         self.addParameter(QgsProcessingParameterEnum(self.METHOD, 'Method', options = ['Queen contiguity', 'Rook contiguity', 'K Nearest Neighbors', 'Distance Band'], defaultValue=0))
+        self.addParameter(QgsProcessingParameterNumber(self.PERMUTATION, type = QgsProcessingParameterNumber.Integer,description='Number of random permutations for calculation of pseudo p_values. Default is 999.', defaultValue = 999, minValue = 1))
         self.addParameter(QgsProcessingParameterNumber(self.KNN_DIST, type = QgsProcessingParameterNumber.Integer,description='K Neighbors / Distance threshold (only for KNN / Distance Band methods)', defaultValue = 1, minValue = 1))
         self.addParameter(QgsProcessingParameterFeatureSink(self.OUTPUT, 'Local Morans I', createByDefault=True, supportsAppend=False, defaultValue=None))
 
@@ -46,6 +48,7 @@ class LocalMoransI(QgsProcessingAlgorithm):
         layerSource = self.parameterAsVectorLayer(parameters, self.INPUT, context)
         field = self.parameterAsString(parameters, self.VARIABLE, context)
         method = self.parameterAsInt(parameters, self.METHOD, context)       # Queen = 0, Rook = 1, KNN = 2, Distance = 3
+        permutation_number = self.parameterAsDouble(parameters, self.PERMUTATION, context)
         knn_dist = self.parameterAsDouble(parameters, self.KNN_DIST, context)
         dest_id = None
         #print(os.path.abspath(__file__))
@@ -72,13 +75,13 @@ class LocalMoransI(QgsProcessingAlgorithm):
 
         # Create spatial weights
         if method == 0:
-            w = libpysal.weights.contiguity.Queen.from_shapefile(temp)
+            w = libpysal.weights.contiguity.Queen.from_shapefile(temp, permutation=permutation_number)
         elif method == 1:
-            w = libpysal.weights.contiguity.Rook.from_shapefile(temp)
+            w = libpysal.weights.contiguity.Rook.from_shapefile(temp,permutation =permutation_number)
         elif method == 2:
-            w = libpysal.weights.distance.KNN.from_shapefile(temp, k=knn_dist)
+            w = libpysal.weights.distance.KNN.from_shapefile(temp, k=knn_dist,permutation=permutation_number)
         elif method ==3:
-            w = libpysal.weights.distance.DistanceBand.from_shapefile(temp, threshold=knn_dist)
+            w = libpysal.weights.distance.DistanceBand.from_shapefile(temp, threshold=knn_dist,permutation=permutation_number)
             
         # y variable
         y = data[field]
@@ -138,7 +141,8 @@ class LocalMoransI(QgsProcessingAlgorithm):
         		"- Queen contiguity in which areas with common edges or corners are considered neighbors (works only for polygon layers).\n"
         		"- K Nearest Neighbors (works with point/polygon* layers).\n"
        			"- Distance Band, in which areas or points within a fixed distance are considered neighbors (works with point/polygon* layers).\n"
-      			"*In KNN and Distance Band, Morans I for polygon layers is calculated based on their centroids.")
+      			"*In KNN and Distance Band, Morans I for polygon layers is calculated based on their centroids.\n"
+                "* The permutation value allows you to set the amount of random permutations for calculation of pseudo p_values. Default is 999.")
 
     def createInstance(self):
         return LocalMoransI()
